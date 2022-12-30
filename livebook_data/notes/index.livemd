@@ -1,0 +1,9 @@
+# notes
+
+## About
+
+* some divers notes about tech
+
+## Index
+
+> I want a Vim script to create my index or something cozy

@@ -1,0 +1,99 @@
+# github multi accounts ssh key
+
+## Section
+
+```elixir
+
+```
+
+### Use github with multiple account
+
+### Working directories
+
+> Inside your Home directory
+
+```sh
+github.com/
+├── user_A
+│   ├── repo_1
+│   └── repo_2
+└── user_B
+    └── repo_1
+```
+
+> Create ssh key for each account
+> Add you ssh key to your system ssh-agent
+
+```sh
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/github_rsa_userA -C "userA@email.com"
+ssh-add ~/.ssh/github_userA
+# use ssh-add -K if you enter a passphrase
+```
+
+> Repeat above commandes for every account you need
+
+```sh
+touch ~/.ssh/config
+chmod 600 ~/.ssh/config
+```
+
+> Mod you config file
+
+```sh
+~/.ssh/config
+...
+Host github.com-userA
+HostName github.com
+UseKeychain yes
+AddKeysToAgent yes
+User git
+IdentityFile ~/.ssh/github_rsa_userA
+IdentitiesOnly yes
+
+Host github.com-userB
+HostName github.com
+UseKeychain yes
+AddKeysToAgent yes
+User git
+IdentityFile ~/.ssh/github_rsa_userB
+IdentitiesOnly yes
+```
+
+> Copy your public keys into your GitHub settings page and click the "New SSH key" button
+
+```sh
+cat ~/.ssh/github_userA.pub
+cat ~/.ssh/github_userB.pub
+```
+
+> Rewrite all the hostnames for the original SSH connections to the correctly suffixed hostnames I created in the SSH config file.
+
+> In `~/github.com/user_A/` create a `.gitconfig.local`
+
+```sh
+[user]
+  email = "userA@email.com"
+  name = "user A"
+[url "git@github.com-userA"]
+  insteadOf = git@github.com
+```
+
+git config --global include.path '~/github.com/user_A/.gitconfig.local'
+
+> Edite the gitconfig inside your Home directory `~/.gitconfig`
+
+```sh
+[includeIf "gitdir:~/github/user_A/"]
+	path = ~/github/user_A/.gitconfig.local
+
+[includeIf "gitdir:~/github/user_B/"]
+	path = ~/github/user_B/.gitconfig.local
+```
+
+### How to check witch user you are using
+
+```sh
+#cd inside specific directories and try to ssh clone a repo or:
+ssh -T git@github.com
+git config -e
+```

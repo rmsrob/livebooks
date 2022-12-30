@@ -1,0 +1,25 @@
+version: '3.6'
+
+services:
+  livebook:
+    image: livebook/livebook:latest
+    container_name: rmsrob-livebook
+    ports:
+      - 8080:8080
+    networks:
+      - external-app-proxy
+    restart: always
+    environment:
+      - LIVEBOOK_PASSWORD=${LIVEBOOK_SECRET}
+    volumes:
+      - ./livebook_data:/data
+    # HOST: 'http://host.docker.internal:3000'
+
+networks:
+  external-app-proxy:
+    name: ${LIVEBOOK_NETWORK_NAME}
+    external: true
+
+volumes:
+  livebook_data:
+    name: ${LIVEBOOK_VOLUME_NAME}

@@ -1,0 +1,26 @@
+# did you say Licenses?
+
+## Section
+
+### LICENSE
+
+* FSF vs EFF !!!
+  * [GPL](https://www.youtube.com/watch?v=IoRtR6wjp1E)
+  * [LICENSE](https://youtu.be/T2D3uO3oEM8?t=5374)
+  * [LINUS T. GPL V3](https://www.youtube.com/watch?v=PaKIZ7gJlRU)
+
+```elixir
+
+```
+
+```elixir
+
+```
+
+```elixir
+
+```
+
+```elixir
+
+```
