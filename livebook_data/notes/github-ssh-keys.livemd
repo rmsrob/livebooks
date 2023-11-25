@@ -25,8 +25,9 @@ github.com/
 > Add you ssh key to your system ssh-agent
 
 ```sh
-ssh-keygen -t rsa -b 4096 -f ~/.ssh/github_rsa_userA -C "userA@email.com"
-ssh-add ~/.ssh/github_userA
+ssh-keygen -t ed25519 -f ~/.ssh/github_ed25519_test -C "userA@email.com"
+# ssh-keygen -t rsa -b 4096 -f ~/.ssh/github_rsa_userA -C "userA@email.com"
+ssh-add ~/.ssh/github_ed25519_test
 # use ssh-add -K if you enter a passphrase
 ```
 
